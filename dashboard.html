@@ -11,6 +11,7 @@
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/navbar.css"> 
 
     <style>
 
@@ -190,7 +191,102 @@
         cursor: pointer;
     }
 
+    .onboarding-overlay {
+    display: flex; /* Ensure it is visible */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
 
+    .onboarding-modal {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        width: 90%;
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-container {
+    position: relative;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+    }
+
+    .video-container img {
+        width: 100%;
+        border-radius: 12px;
+    }
+
+    .play-pause-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .progress-bar-container {
+        position: relative;
+        height: 6px;
+        background: #e0e0e0;
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: 8px;
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: #6a5acd;
+        transition: width 0.3s ease;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #333;
+    }
+
+    p {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 24px;
+    }
+
+    .continue-btn {
+        background: #6a5acd;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .continue-btn:hover {
+        background: #5a4ebc;
+    }
 
     </style>
 </head>
@@ -214,7 +310,7 @@
 
                 <!-- help & feedback -->
                 <div class="help-feedback mt-auto">
-                    <a href="#" class="help-link">
+                    <a href="faq.html" class="help-link">
                         <img src="assets/icons/question-circle.svg" alt="Help Icon">
                         Help & Feedback
                     </a>
@@ -391,9 +487,123 @@
         </div>
     </main>
 
+<!-- onboarding overlay -->
+<div class="onboarding-overlay" id="onboardingOverlay">
+    <div class="onboarding-modal" id="onboardingStep1">
+        <div class="video-container">
+            <img src="path/to/onboarding-image.jpg" alt="Welcome video thumbnail" id="videoPlaceholder">
+            <button class="play-pause-btn" id="playPauseBtn">
+                <i class="fas fa-play"></i>
+            </button>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+        <h2>Welcome to your dashboard</h2>
+        <p>We're glad to have you onboard. Here are some quick tips to get you up and running.</p>
+        <button class="continue-btn" id="continueStep1">Continue</button>
+    </div>
 
+    <div class="onboarding-modal" id="onboardingStep2" style="display: none;">
+        <h2>Kickstart your volunteering journey</h2>
+        <p>Let's personalize your volunteering journey! To tailor your experience more closely to your interests and skills, we'll guide you through a series of questions. This will help us ensure that your time as a volunteer is as rewarding and impactful as possible.</p>
+        <button class="continue-btn" id="continueStep2">Continue</button>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="onboarding-modal" id="onboardingStep3" style="display: none;">
+        <h2>Step 1: Tell us about yourself!</h2>
+        <p>Please select your preferred volunteering commitment from the options below. This will help us match you with opportunities that align with the amount of time you're willing to dedicate each week.</p>
+        <form>
+            <label for="ageGroup">Age Group*</label>
+            <select id="ageGroup" class="form-control mb-3">
+                <option>Select your age group</option>
+            </select>
+            <label for="residencyStatus">Residency Status*</label>
+            <select id="residencyStatus" class="form-control mb-3">
+                <option>Select your residency status in Canada</option>
+            </select>
+            <label for="province">Province*</label>
+            <select id="province" class="form-control mb-3">
+                <option>Select your current province</option>
+            </select>
+            <label for="school">School/University Name and Your Major/Degree*</label>
+            <input type="text" id="school" class="form-control mb-3" placeholder="Enter your school/university name">
+        </form>
+        <button class="continue-btn" id="continueStep3">Continue</button>
+    </div>
 
+    <div class="onboarding-modal" id="onboardingStep4" style="display: none;">
+        <h2>Step 2: Select a volunteering plan</h2>
+        <p>Please select your preferred volunteering commitment from the options below. This will help us match you with opportunities that align with the amount of time you're willing to dedicate each week.</p>
+        <form>
+            <label for="volunteeringPlan">Volunteering Plan*</label>
+            <select id="volunteeringPlan" class="form-control mb-3">
+                <option>Select your preferred plan</option>
+            </select>
+        </form>
+        <button class="continue-btn" id="continueStep4">Continue</button>
+    </div>
+
+    <div class="onboarding-modal" id="onboardingStep5" style="display: none;">
+        <h2>Step 3: Select a preferred track</h2>
+        <p>Choose your volunteering interests from the list below. Feel free to select multiple options. Remember, your choices aren't final—you can change them anytime!</p>
+        <button class="continue-btn" id="continueStep5">Continue</button>
+    </div>
+</div>
+
+<!-- scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ensures the onboarding overlay is always displayed when refreshign the page. this is just implemented for demo purposes.
+        const onboardingOverlay = document.getElementById('onboardingOverlay');
+        const steps = [
+            document.getElementById('onboardingStep1'),
+            document.getElementById('onboardingStep2'),
+            document.getElementById('onboardingStep3'),
+            document.getElementById('onboardingStep4'),
+            document.getElementById('onboardingStep5')
+        ];
+        let currentStep = 0;
+        
+        onboardingOverlay.style.display = 'flex';
+
+        steps.forEach((step, index) => {
+            const continueBtn = step.querySelector('.continue-btn');
+            continueBtn.addEventListener('click', function() {
+                step.style.display = 'none'; 
+                if (index + 1 < steps.length) {
+                    steps[index + 1].style.display = 'block'; 
+                } else {
+                    onboardingOverlay.style.display = 'none'; 
+                }
+            });
+        });
+        
+        // was unable to have this more as a touring tutorial that highlights due to time contstraints. 
+        // the main features found on the dashboard and explains the features to the user at their own pace.
+        
+        // this is for when you actually use the onboarding video
+        
+        // const playPauseBtn = document.getElementById('playPauseBtn');
+        // const video = document.getElementById('onboardingVideo');
+        
+        // playPauseBtn.addEventListener('click', function() {
+        //     if (video.paused) {
+        //         video.play();
+        //         playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        //     } else {
+        //         video.pause();
+        //         playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        //     }
+        // });    
+
+        // video.addEventListener('timeupdate', function() {
+        //     const progressPercent = (video.currentTime / video.duration) * 100;
+        //     document.querySelector('.progress-bar').style.width = progressPercent + '%';
+        // });
+
+    });
+</script>
 </body>
 </html>
